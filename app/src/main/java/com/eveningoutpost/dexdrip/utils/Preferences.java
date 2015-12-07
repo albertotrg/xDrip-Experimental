@@ -25,8 +25,8 @@ import android.preference.SwitchPreference;
 import android.text.InputFilter;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.eveningoutpost.dexdrip.Models.UserError.Log;
+
 import com.eveningoutpost.dexdrip.Services.MissedReadingService;
 import com.eveningoutpost.dexdrip.Services.XDripViewer;
 import com.eveningoutpost.dexdrip.R;
@@ -244,12 +244,9 @@ public class Preferences extends PreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-<<<<<<< HEAD
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-=======
             DecimalFormat df;
->>>>>>> Multiple Changes
             addPreferencesFromResource(R.xml.pref_license);
             addPreferencesFromResource(R.xml.pref_general);
             final EditTextPreference highValue = (EditTextPreference)findPreference("highValue");
@@ -265,6 +262,7 @@ public class Preferences extends PreferenceActivity {
             bindPreferenceSummaryToValue(findPreference("calibration_notification_sound"));
             bindPreferenceSummaryToValueAndEnsureNumeric(findPreference("calibration_snooze"));
             bindPreferenceSummaryToValueAndEnsureNumeric(findPreference("bg_unclear_readings_minutes"));
+            bindPreferenceSummaryToValueAndEnsureNumeric(findPreference("bg_missed_minutes"));
             bindPreferenceSummaryToValueAndEnsureNumeric(findPreference("disable_alerts_stale_data_minutes"));
             bindPreferenceSummaryToValue(findPreference("falling_bg_val"));
             bindPreferenceSummaryToValue(findPreference("rising_bg_val"));
@@ -336,7 +334,6 @@ public class Preferences extends PreferenceActivity {
             final PreferenceScreen calibrationAlertsScreen = (PreferenceScreen) findPreference("calibration_alerts_screen");
             final PreferenceCategory alertsCategory = (PreferenceCategory) findPreference("alerts_category");
             final Preference disableAlertsStaleDataMinutes = findPreference("disable_alerts_stale_data_minutes");
-
             disableAlertsStaleDataMinutes.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -364,7 +361,6 @@ public class Preferences extends PreferenceActivity {
                 prefs.edit().putBoolean("calibration_notifications", false).apply();
             }
 
-
             if ((prefs.getString("dex_collection_method", "BluetoothWixel").compareTo("WifiWixel") != 0)
                     && (prefs.getString("dex_collection_method", "BluetoothWixel").compareTo("WifiBlueToothWixel") != 0)) {
                 String receiversIpAddresses;
@@ -380,11 +376,11 @@ public class Preferences extends PreferenceActivity {
                 collectionCategory.removePreference(transmitterId);
                 collectionCategory.removePreference(displayBridgeBatt);
             }
-<<<<<<< HEAD
 
             if(prefs.getString("dex_collection_method", "BluetoothWixel").compareTo("DexcomG5") == 0) {
                 collectionCategory.addPreference(transmitterId);
-=======
+            }
+
             if(!prefs.getBoolean(pebbleSync.getKey(),false)){
                 pebbleCategory.removePreference(pebbleTrend);
                 pebbleCategory.removePreference(pebbleHighLine);
@@ -392,7 +388,6 @@ public class Preferences extends PreferenceActivity {
                 pebbleCategory.removePreference(pebbleTrendPeriod);
                 pebbleCategory.removePreference(pebbleSpecialValue);
                 pebbleCategory.removePreference(pebbleSpecialText);
->>>>>>> Multiple Changes
             }
            if(prefs.getString("units", "mgdl").compareTo("mmol")!=0) {
                df = new DecimalFormat("#.#");
